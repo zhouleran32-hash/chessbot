@@ -1,0 +1,27 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+
+# Python and local development files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+
+# Local game data, uploaded books, and vector store
+data/cache/*
+!data/cache/.gitkeep
+data/books/*
+!data/books/.gitkeep
+data/chroma/*
+!data/chroma/.gitkeep
+
+# Workspace scratch files and verification artifacts
+work/
+
+# Visual design companion sessions
+.superpowers/

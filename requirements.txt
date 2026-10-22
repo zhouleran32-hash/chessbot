@@ -1,0 +1,15 @@
+streamlit
+python-chess
+requests
+langchain
+langchain-core
+langchain-community
+langchain-openai
+langchain-text-splitters
+chromadb
+pypdf
+python-dotenv
+openai
+anthropic
+# HTTP transport used by the SDK integration tests.
+httpx2
