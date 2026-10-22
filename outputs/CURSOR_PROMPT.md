@@ -1,15 +1,12 @@
 # ChessBot handoff for Cursor
 
-Open and work directly in this existing project folder:
+Open and work directly in this existing project folder. Read and edit these
+files directly; do not create another project or extract a separate copy from
+the ZIP.
 
-`/Users/lawrence/Documents/Codex/2026-10-15/we-are-building-chesscoach-a-python`
-
-This is the working copy already built with Codex. Read and edit these files
-directly; do not create another project or extract a separate copy from the ZIP.
-
-We are building ChessBot, a Python Streamlit app that fetches my public
-Chess.com games and analyzes my mistakes with python-chess and Stockfish.
-My Chess.com username is **Lawrence-Zhou**, and my current rating is **564**.
+We are building ChessBot, a Python Streamlit app that fetches public
+Chess.com games and analyzes mistakes with python-chess and Stockfish.
+The Chess.com username and rating come from `.env`.
 The current priority is detailed teaching from **The Soviet Chess Primer**,
 now covering chapters 1–10 and the appendix. Keep game review available beside
 the course. Teach why each idea works, show legal connected examples and

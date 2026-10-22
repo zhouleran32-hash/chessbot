@@ -10,9 +10,9 @@ from core.config import load_config
 class ConfigTests(unittest.TestCase):
     @patch("core.config.load_dotenv")
     def test_profile_controls_the_default_player_rating_and_review_mode(self, dotenv):
-        with patch.dict(os.environ, {"CHESS_COM_USERNAME": " Lawrence-Zhou ", "CHESS_COM_RATING": "564", "CHESSBOT_REVIEW_ONLY": "true"}, clear=True):
+        with patch.dict(os.environ, {"CHESS_COM_USERNAME": " player ", "CHESS_COM_RATING": "564", "CHESSBOT_REVIEW_ONLY": "true"}, clear=True):
             config = load_config()
-        self.assertEqual(config.chess_com_username, "Lawrence-Zhou")
+        self.assertEqual(config.chess_com_username, "player")
         self.assertEqual(config.user_rating, 564)
         self.assertTrue(config.review_only)
 

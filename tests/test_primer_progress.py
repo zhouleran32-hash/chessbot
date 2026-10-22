@@ -14,7 +14,7 @@ class ProgressTests(unittest.TestCase):
         self.path = Path(temp.name) / "cache" / "primer.sqlite3"
 
     def test_passed_checks_survive_reopening_without_counting_failed_attempts_as_passed(self):
-        progress = LearningProgress(self.path, "Lawrence-Zhou")
+        progress = LearningProgress(self.path, "player")
         progress.record("check", "board", False)
         self.assertEqual(progress.passed("check"), set())
         progress.record("check", "board", True)
@@ -24,7 +24,7 @@ class ProgressTests(unittest.TestCase):
         self.assertEqual(LearningProgress(self.path, "other-player").passed("check"), set())
 
     def test_bookmark_is_per_player_and_persistent(self):
-        progress = LearningProgress(self.path, "Lawrence-Zhou")
+        progress = LearningProgress(self.path, "player")
         progress.bookmark("rook")
         self.assertEqual(LearningProgress(self.path, "lawrence-zhou").last_lesson(), "rook")
         self.assertIsNone(LearningProgress(self.path, "other-player").last_lesson())

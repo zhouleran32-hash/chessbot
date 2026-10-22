@@ -659,10 +659,10 @@ class DashboardTests(unittest.TestCase):
         self.assertIn("A grounded review", self.text())
 
     def test_personal_review_fetches_and_analyzes_latest_game_with_no_book_or_plan_controls(self):
-        self.config = replace(self.config, chess_com_username="Lawrence-Zhou", user_rating=564, review_only=True)
-        self.fetch.return_value = [game(2, white_username="Lawrence-Zhou", white_rating=590)]
+        self.config = replace(self.config, chess_com_username="player", user_rating=564, review_only=True)
+        self.fetch.return_value = [game(2, white_username="player", white_rating=590)]
         self.run_app()
-        self.assertEqual(self.app.text_input(key="username").value, "Lawrence-Zhou")
+        self.assertEqual(self.app.text_input(key="username").value, "player")
         self.assertEqual(self.app.number_input(key="user_rating").value, 564)
         self.button("Fetch Games").click()
         self.run_app()
@@ -674,7 +674,7 @@ class DashboardTests(unittest.TestCase):
         self.assertNotIn("Enable the AI coach", self.text())
 
     def test_primer_teaches_all_three_chapters_and_game_review_stays_available(self):
-        self.config = replace(self.config, review_only=True, chess_com_username="Lawrence-Zhou", user_rating=564)
+        self.config = replace(self.config, review_only=True, chess_com_username="player", user_rating=564)
         self.run_app()
         self.assertEqual(self.app.radio(key="main_section").value, "Your games")
         self.app.radio(key="main_section").set_value("The Soviet Chess Primer")
@@ -791,8 +791,8 @@ class DashboardTests(unittest.TestCase):
 
     def test_new_chapters_are_navigable_and_their_saved_place_is_restored(self):
         from core.primer_progress import LearningProgress
-        self.config = replace(self.config, review_only=True, chess_com_username="Lawrence-Zhou")
-        store = LearningProgress(self.config.sqlite_path.parent / "primer.sqlite3", "Lawrence-Zhou")
+        self.config = replace(self.config, review_only=True, chess_com_username="player")
+        store = LearningProgress(self.config.sqlite_path.parent / "primer.sqlite3", "player")
         store.bookmark("ch7-queen")
         self.run_app()
         self.app.radio(key="main_section").set_value("The Soviet Chess Primer")
@@ -819,8 +819,8 @@ class DashboardTests(unittest.TestCase):
 
     def test_appendix_is_named_navigable_and_remembers_practice(self):
         from core.primer_progress import LearningProgress
-        self.config = replace(self.config, review_only=True, chess_com_username="Lawrence-Zhou")
-        store = LearningProgress(self.config.sqlite_path.parent / "primer.sqlite3", "Lawrence-Zhou")
+        self.config = replace(self.config, review_only=True, chess_com_username="player")
+        store = LearningProgress(self.config.sqlite_path.parent / "primer.sqlite3", "player")
         store.record("board-setup", "board", True)
         store.bookmark("app-introduction")
         self.run_app()
@@ -866,7 +866,7 @@ class DashboardTests(unittest.TestCase):
 
     def test_complete_appendix_collections_and_last_study_save_progress(self):
         from core.primer_progress import LearningProgress
-        self.config = replace(self.config, review_only=True, chess_com_username="Lawrence-Zhou")
+        self.config = replace(self.config, review_only=True, chess_com_username="player")
         self.run_app()
         self.app.radio(key="main_section").set_value("The Soviet Chess Primer")
         self.run_app()
@@ -889,7 +889,7 @@ class DashboardTests(unittest.TestCase):
         self.assertIn("1. Ne3", self.text())
         self.button("Ne3").click()
         self.run_app()
-        store = LearningProgress(self.config.sqlite_path.parent / "primer.sqlite3", "Lawrence-Zhou")
+        store = LearningProgress(self.config.sqlite_path.parent / "primer.sqlite3", "player")
         self.assertIn("board", store.passed("app-draw-11"))
         self.assertEqual(store.last_lesson(), "app-draw-11")
         self.app.button(key="primer_previous_lesson").click()
@@ -909,8 +909,8 @@ class DashboardTests(unittest.TestCase):
 
     def test_part_two_bookmark_replay_practice_and_chapter_navigation(self):
         from core.primer_progress import LearningProgress
-        self.config = replace(self.config, review_only=True, chess_com_username="Lawrence-Zhou")
-        store = LearningProgress(self.config.sqlite_path.parent / "primer.sqlite3", "Lawrence-Zhou")
+        self.config = replace(self.config, review_only=True, chess_com_username="player")
+        store = LearningProgress(self.config.sqlite_path.parent / "primer.sqlite3", "player")
         store.bookmark("ch10-symmetry")
         self.run_app()
         self.app.radio(key="main_section").set_value("The Soviet Chess Primer")
@@ -932,7 +932,7 @@ class DashboardTests(unittest.TestCase):
         self.assertIn("board", store.passed("ch10-symmetry"))
 
     def test_primer_guide_shows_book_pages_replays_examples_and_saves_checked_answers(self):
-        self.config = replace(self.config, review_only=True, chess_com_username="Lawrence-Zhou")
+        self.config = replace(self.config, review_only=True, chess_com_username="player")
         guide = {
             "pages": (13, 14), "goals": ("Keep the king safe.",),
             "sections": ({"title": "Why safety matters", "body": "A king cannot move to an attacked square."},),
@@ -970,7 +970,7 @@ class DashboardTests(unittest.TestCase):
         self.assertNotIn("The king must always stay safe", self.text())
         self.assertIn("Check your changed answer", self.text())
         from core.primer_progress import LearningProgress
-        saved = LearningProgress(self.config.sqlite_path.parent / "primer.sqlite3", "Lawrence-Zhou")
+        saved = LearningProgress(self.config.sqlite_path.parent / "primer.sqlite3", "player")
         self.assertIn("concept:king-safety", saved.passed("board-setup"))
 
     def test_coaching_uses_current_rating_instead_of_historical_game_rating(self):
